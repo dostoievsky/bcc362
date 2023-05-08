@@ -18,7 +18,6 @@
 
 vagrant up
 vagrant ssh
-docker run -it myimage:1.0 /bin/sh
 
 ```
 
