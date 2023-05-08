@@ -1,0 +1,23 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "archlinux/archlinux"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+    vb.cpus = "2"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    pacman -Syu --noconfirm
+    pacman -S --noconfirm docker docker-buildx
+    systemctl enable docker
+    usermod -aG docker vagrant
+    docker buildx install
+    docker buildx create --name mybuilder
+  SHELL
+
+  config.vm.provision "docker" do |d|
+    d.build_image "/vagrant", args: "-t myimage:1.0 --build-arg NAME=myname --build-arg CLASS=myclass"
+  end
+end
+
