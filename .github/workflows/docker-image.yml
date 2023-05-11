@@ -13,16 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: Login Docker Hub
-      env:
-        DOCKER_PASSWORD_FILE: ${{ github.workspace }}/docker_password
-      run: echo ${{ secrets.DOCKER_PASSWORD }} > $DOCKER_PASSWORD_FILE && docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin < $DOCKER_PASSWORD_FILE
+      run: echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
     - name: Build and tag the Docker image
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: Push the Docker image to Docker Hub
       run: docker push my-image-name:$(date +%s)
     - name: Logout from Docker Hub
       run: docker logout
-    - name: Remove Docker password file
-      run: rm $DOCKER_PASSWORD_FILE
