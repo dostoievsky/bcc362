@@ -19,6 +19,6 @@ jobs:
     - name: Build and tag the Docker image
       run: docker build . --file tpi/Dockerfile --tag "${{ secrets.IMAGE_NAME }}":1.0 --build-arg NAME="base" --build-arg CLASS="$bcc362/23.1" 
     - name: Push the Docker image to Docker Hub
-      run: docker push my-image-name:$(date +%s)
+      run: docker push "${{ secrets.IMAGE_NAME }}":1.0
     - name: Logout from Docker Hub
       run: docker logout
