@@ -154,6 +154,15 @@ processos com maior numero de prioridade que o seu.
 
 ### Exemplo
 
+```mermaid
+graph TD;
+    A-->B;
+    B-->C;
+    C-->P;
+    P-->S;
+    S-->V;
+    V-->...;
+```
 
 ## Rabbitmq
 
