@@ -136,44 +136,182 @@ Esse algoritmo é aplicado num sistema onde todos os procesos
 podem se comunicar entre si. Ele opera da seguinte maneira:
 
 ```mermaid
-graph LR;
-    A-->B;
-    B-->C;
-    C-->P;
-    P-->S;
-    S-->V;
-    V-->Cp(Coordenador de P)
-    V-->X;
-    X-->Q;
-    Q-->W;
-    W-->...;
+flowchart LR;
+subgraph "Sistema Distribuido"
+
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P;
+
+  subgraph " Prioridade superior a P "
+    S; Q; V;
+    Cdn[(Coordenador)]
+  end
+
+end
 ```
-<ul>
-  <li>Processo P envia uma mensagem ao coordenador.</li>
-</ul>
 
-  - Caso o coordenador não responda num intervalo T, se assume
-  que o coordenador falhou.
-- Processo P envia uma mensagem de eleição ao todos os 
-processos com maior numero de prioridade que o seu.
-  - Caso nenhum processo de maior prioridade o responda num
-  intervalo T, P elege a si mesmo como coordenador.
-    - P então envia uma mensagem a todos os processos com
-    prioridade inferior a si mesmo, dizendo que é o novo
-    coordenador.
-  - Porém, caso um processo Q responda P:
-    - Processo P aguarda um intervalo de tempo T para
-    receber uma nova mensagem de Q, dizendo que é o
-    novo coordenador.
-    - Caso Q não responda dentro do intervalo,
-    P assume que houve alguma falha e o processo
-    reinicia. 
+```mermaid
+---
+title: Processo P envia uma mensagem ao coordenador.
+---
+flowchart LR;
+subgraph "Sistema Distribuido"
 
-<div style="float: left; margin-right: 20px;">
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
 
-</div>
+  subgraph " Prioridade superior a P "
+    S; Q; V; 
+    Cdn[(Coordenador)]
+  end
 
+  P-. Mensagem .-> Cdn;
+end
+```
 
+```mermaid
+---
+title:  Caso o coordenador não responda num intervalo T, se assume que o coordenador falhou.
+---
+flowchart LR;
+subgraph "Sistema Distribuido"
+
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P;
+
+  subgraph " Prioridade superior a P "
+    S; Q; V; 
+    Cdn[(Coordenador)]
+  end
+
+  Cdn -. Falha .-x P;
+end
+```
+
+```mermaid
+---
+title: Processo P envia uma mensagem de eleição ao todos os processos com maior numero de prioridade que o seu.
+---
+flowchart LR;
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P;
+
+  subgraph " Prioridade superior a P "
+    S; Q; V;
+    Cdn[(Coordenador)]
+  end
+  
+  P-. Eleição .->S
+  P-. Eleição .->V
+  P-. Eleição .->Q
+```
+
+```mermaid
+---
+title:  Caso nenhum processo de maior prioridade o responda num intervalo T, P elege a si mesmo como coordenador.
+---
+flowchart LR;
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P[(Coordenador)]
+
+  subgraph " Prioridade superior a P "
+    S; Q; V;
+  end
+
+  S -. Falha .-x P
+  Q -. Falha .-x P
+  V -. Falha .-x P
+```
+
+```mermaid
+---
+title:  P então envia uma mensagem a todos os processos com prioridade inferior a si mesmo, dizendo que é o novo coordenador.  
+---
+flowchart LR;
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P[(Coordenador)]
+
+  subgraph " Prioridade superior a P "
+    S; Q; V;
+  end
+  
+  P-. Posse .->C
+  P-. Posse .->B
+  P-. Posse .->A
+```
+
+```mermaid
+---
+title: Porém, existe o caso em que um processo Q responde P dentro do tempo T
+---
+flowchart LR;
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P;
+
+  subgraph " Prioridade superior a P "
+    S; Q; V;
+  end
+
+  Q -. Ok .->P
+```
+
+```mermaid
+---
+title: Então o processo P aguarda novamente um intervalo de tempo T para receber uma nova mensagem de Q, dizendo que é o novo coordenador.
+---
+flowchart LR;
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P;
+
+  subgraph " Prioridade superior a P "
+    S; Q[(Coordenador)]; V;
+  end
+
+  Q -. Posse .->P
+```
+
+```mermaid
+---
+title: Caso Q não responda dentro do intervalo, P assume que houve alguma falha e o processo reinicia. 
+---
+flowchart LR;
+  subgraph " Prioridade inferior a P "
+    A; B; C; 
+  end
+
+  P;
+
+  subgraph " Prioridade superior a P "
+    S; Q; V;
+  end    
+  
+  Q -. Falha .-x P
+  P-. Eleição .->S
+  P-. Eleição .->Q
+  P-. Eleição .->V
+```
 
 ## Rabbitmq
 
