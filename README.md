@@ -132,8 +132,8 @@ do conjunto.
 
 #### Algoritmo do Valentão
 
-Esse algoritmo é aplicado num sistema onde todos os procesos
-podem se comunicar entre si. Ele opera da seguinte maneira:
+Esse algoritmo é aplicado num sistema onde **todos os procesos
+podem se comunicar entre si**. Ele opera da seguinte maneira:
 
 ```mermaid
 flowchart LR;
@@ -311,6 +311,76 @@ flowchart LR;
   P-. Eleição .->S
   P-. Eleição .->Q
   P-. Eleição .->V
+```
+
+#### Algoritmo do Anel
+
+Esse algoritmo é aplicado num sistema onde organizado
+numa forma circular. Um proceso se comunica apenas com
+o proximo a direita, de maneira **unidiecional**. 
+
+
+```mermaid
+flowchart LR;
+    Pa --> Pb --> Pc --> Pd --> Pf --> Pa 
+```
+
+```mermaid
+---
+title: Proceso Pf falha 
+---
+flowchart LR;
+    Pa -->Pb --> Pc --> Pd --x Pf --> Pa 
+```
+
+```mermaid
+---
+title: Proceso Pb inicializa a eleição 
+---
+flowchart LR;
+    Pa --> Pb -. Eleição .-> Pc --> Pd --> Pf --> Pa 
+```
+
+
+```mermaid
+---
+title: Proceso Pb inicializa a eleição 
+---
+flowchart LR;
+    Pa -->Pb -. Eleição .-> Pc --> Pd --> Pf -->Pa 
+```
+
+```mermaid
+---
+title: A eleição é passada adiante até que se encontre o processo de hierarquia mais alta.   
+---
+flowchart LR;
+    Pa --> Pb -. Eleição .-> Pc -. Eleição .-> Pd -. Eleição .-x Pf --> Pa;
+    Pd -. Eleição .-> Pa; 
+```
+
+```mermaid
+---
+title: O processo eleito então comunica sua posse ao sistema.   
+---
+flowchart LR;
+    Pa -. Eleição .-> Pb -. Eleição .-> ... -. Eleição .-> Pd -. Eleito .-> Pa; 
+```
+
+```mermaid
+---
+title: O processo eleito então comunica sua posse ao sistema.   
+---
+flowchart LR;
+    Pa -. Eleito .-> Pb -. Eleito .-> ... -. Eleito .-> Pd -. Eleito .-> Pa; 
+```
+
+```mermaid
+---
+title: Fim da eleição.   
+---
+flowchart LR;
+    Pa --> Pb --> Pc --> Pd -->Pa; 
 ```
 
 ## Rabbitmq
