@@ -103,7 +103,7 @@ de processos apresentados em aula:
     - Algoritmo do valentão
     - Algoritmo do anel
     - Eleição em ambiente sem fio
-    - Eleição em rede ad hoc sem fio
+      - Eleição em rede ad hoc
     - Eleição em sistemas de grande escala
     - Aborde um novo exemplo
   - Demonstre uma implementação de um dos algoritmos abordados
@@ -134,6 +134,8 @@ do conjunto.
 
 Esse algoritmo é aplicado num sistema onde **todos os procesos
 podem se comunicar entre si**. Ele opera da seguinte maneira:
+
+<details>
 
 ```mermaid
 flowchart LR;
@@ -312,6 +314,7 @@ flowchart LR;
   P-. Eleição .->Q
   P-. Eleição .->V
 ```
+</details>
 
 #### Algoritmo do Anel
 
@@ -319,6 +322,7 @@ Esse algoritmo é aplicado num sistema onde organizado
 numa forma circular. Um proceso se comunica apenas com
 o proximo a direita, de maneira **unidiecional**. 
 
+<details>
 
 ```mermaid
 flowchart LR;
@@ -382,9 +386,13 @@ title: Fim da eleição.
 flowchart LR;
     Pa --> Pb --> Pc --> Pd -->Pa; 
 ```
+</details>
+
+#### Eleição em rede ad hoc
 
 ## Rabbitmq
 
 ## Referencias
 
 - [https://www.geeksforgeeks.org/election-algorithm-and-distributed-processing/](https://www.geeksforgeeks.org/election-algorithm-and-distributed-processing/)
+- [https://people.engr.tamu.edu/j-welch/papers/dialm00.pdf](https://people.engr.tamu.edu/j-welch/papers/dialm00.pdf)
