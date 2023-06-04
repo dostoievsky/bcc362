@@ -98,7 +98,7 @@ jobs:
 de processos apresentados em aula:
   - Problema em pauta:
     - Objetivos
-    - Supocições/hipotes
+    - Suposições/hipotes
   - Abordagens:
     - Algoritmo do valentão
     - Algoritmo do anel
@@ -113,6 +113,21 @@ de processos apresentados em aula:
 
 ### Introdução
 
+A eleição de processos é um conceito de sistemas distribuidos.
+Procesos em sistemas distribuidos não compartilham memoria, 
+cada um tendo alocação de recursos particulares e independentes. 
+
+Sendo assim, tais processos se comunicam através de uma rede, 
+o que leva a necessidade da existencia de um **coordenador**. 
+Um processo dito coordenador realiza operações das quais 
+outro processo depende. Essa caracteristica levou a criação 
+dos ditos **Algoritmos de eleição**.
+
+Esses algoritmos escolhem um processo num conjunto distribuido
+para que este opere como coordenador. Caso esse processo falhe
+por qualquer razão, um novo coordenador, então, é eleito dentro
+do conjunto.
+
 ### Algoritmos
 
 ### Exemplo
@@ -120,3 +135,5 @@ de processos apresentados em aula:
 ## Rabbitmq
 
 ## Referencias
+
+- [https://www.geeksforgeeks.org/election-algorithm-and-distributed-processing/](https://www.geeksforgeeks.org/election-algorithm-and-distributed-processing/)
