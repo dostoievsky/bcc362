@@ -134,7 +134,24 @@ do conjunto.
 
 Esse algoritmo é aplicado num sistema onde todos os procesos
 podem se comunicar entre si. Ele opera da seguinte maneira:
-- Processo P envia uma mensagem ao coordenador.
+
+```mermaid
+graph LR;
+    A-->B;
+    B-->C;
+    C-->P;
+    P-->S;
+    S-->V;
+    V-->Cp(Coordenador de P)
+    V-->X;
+    X-->Q;
+    Q-->W;
+    W-->...;
+```
+<ul>
+  <li>Processo P envia uma mensagem ao coordenador.</li>
+</ul>
+
   - Caso o coordenador não responda num intervalo T, se assume
   que o coordenador falhou.
 - Processo P envia uma mensagem de eleição ao todos os 
@@ -152,17 +169,11 @@ processos com maior numero de prioridade que o seu.
     P assume que houve alguma falha e o processo
     reinicia. 
 
-### Exemplo
+<div style="float: left; margin-right: 20px;">
 
-```mermaid
-graph TD;
-    A-->B;
-    B-->C;
-    C-->P;
-    P-->S;
-    S-->V;
-    V-->...;
-```
+</div>
+
+
 
 ## Rabbitmq
 
