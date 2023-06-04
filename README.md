@@ -12,6 +12,8 @@
 
 # Trabalho Pratico I
 
+<details>
+
 ## Testando o Dockerfile:
 
 ``` bash
@@ -31,7 +33,6 @@ ls
 ```
 
 ## Criando diretamente no Host:
-
 
 ``` bash
 
@@ -85,3 +86,8 @@ jobs:
 
 ```
 
+</details>
+
+<hr/>
+
+# Trabalho Pratico II
