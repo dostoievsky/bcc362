@@ -91,3 +91,32 @@ jobs:
 <hr/>
 
 # Trabalho Pratico II
+
+## Enunciado
+
+- Discorra e apresente os conceitos de eleições
+de processos apresentados em aula:
+  - Problema em pauta:
+    - Objetivos
+    - Supocições/hipotes
+  - Abordagens:
+    - Algoritmo do valentão
+    - Algoritmo do anel
+    - Eleição em ambiente sem fio
+    - Eleição em rede ad hoc sem fio
+    - Eleição em sistemas de grande escala
+    - Aborde um novo exemplo
+  - Demonstre uma implementação de um dos algoritmos abordados
+- Discorra e apresente os conceitos e abordagens do Rabbitmq
+
+## Eleições de Processos
+
+### Introdução
+
+### Algoritmos
+
+### Exemplo
+
+## Rabbitmq
+
+## Referencias
