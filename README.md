@@ -390,6 +390,76 @@ flowchart LR;
 
 #### Eleição em rede ad hoc
 
+Uma rede é considerada ad hoc em sistemas distribuidos quando um par de 
+nodulos se comunicam através de uma fonte direta ou atraves de um ou mais
+nodulos intermediarios. Os pares que estão proximos uns dos outros, dentro
+do limite de transmissão, são os unicos capazes de se comunicarem entre si.
+
+Uma falha de rede então ocorre quando algum elemento do par se move e não 
+se encontra mais dentro do raio de transmissão de seu par. Da mesma maneira,
+uma conexâo ocorre quando um nodulo antes distante, encontra-se então dentro
+do raio de algum outro nodulo.
+
+Essa dinamica estabelece um espaço cuja topologia está em constante mudança,
+e rompe com o paradigma de redes estãticas e seus processos de eleição. A
+diferença consiste no fato de que por vezes, existirões partições separadas,
+tanto como um conjunto de nodulos assim como nodulos completamente isolados.
+Isso detona que dentro de um conjuto distribuido movel, haverão momentos 
+em que existirão multiplos lideres para diferentes partições e até mesmo
+nodulos desprovidos de lideres. As eleições nesse paradigma devem então 
+garantir que num conjunto de nodulos, apenas um lider exista, ou sobreviva
+dentre outros. 
+
+O grafo desenhado abaixo foi extraido da segunda referencia deste documento,
+que aborta o algoritmo TORA para a escolha de lideres em redes Ad Hoc.
+A diferença principal será a explicação cuidadosa dos relacionamentos
+dos nodulos e suas transformassões, abstraindo o funciomaneto do algoritmo.
+
+
+```mermaid
+---
+title: Estado inicial da Rede Ad Hoc    
+---
+flowchart LR;
+    A(("(A,-1,-1,-1,0,A)"))
+    B; D; E; F; H; G;
+  
+    B-->A
+    B-->F
+    B-->D
+    D-->A
+    D-->F
+
+    E-->F
+    H-->F
+    G-->H
+
+```
+
+```mermaid
+---
+title: Estado inicial da Rede Ad Hoc    
+---
+flowchart LR;
+  subgraph " Partição 1 "
+    A(("(A,-1,-1,-1,0,A)"))
+    B; D; 
+  end
+
+  subgraph " Partição 2 "
+    E; F; H; G;
+  end
+  
+    B-->A
+    B-->D
+    D-->A
+
+    E-->F
+    H-->F
+    G-->H
+
+```
+
 ## Rabbitmq
 
 ## Referencias
