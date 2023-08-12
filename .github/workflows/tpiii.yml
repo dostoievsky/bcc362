@@ -1,0 +1,38 @@
+name: TPIII
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login Docker Hub
+      run: echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+    - name: Build and Push Db
+      run: |
+          docker build . --file ./tpiv/docker/Database -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:database
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:database
+    - name: Build and Push RabbitMQ
+      run: |
+          docker build . --file ./tpiv/docker/Rabbit -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:rabbit 
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:rabbit
+    - name: Build and Push Vote
+      run: |
+          docker build . --file ./tpiv/docker/Vote -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:vote 
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:vote
+    - name: Build and Push result
+      run: |
+          docker build . --file ./tpiv/docker/Result -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:result 
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:result
+    - name: Build and Push seed
+      run: |
+          docker build ./tpiv/seed-data --file ./seed-data/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:seed 
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REGISTRY }}:seed
+    - name: Logout from Docker Hub
+      run: docker logout
